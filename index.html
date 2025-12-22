@@ -1,0 +1,1187 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>NeuroZen AI — Next‑Gen AI Apps & Chatbots</title>
+    <meta
+      name="description"
+      content="NeuroZen AI builds next‑gen AI apps, chatbots, and creative agents powered by cutting‑edge models and playful experimentation."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #040510;
+        --bg-elevated: #06071a;
+        --bg-soft: #090a1f;
+        --accent: #7c3aed;
+        --accent-soft: rgba(124, 58, 237, 0.25);
+        --accent-alt: #22d3ee;
+        --text: #f9fafb;
+        --muted: #9ca3af;
+        --border-subtle: rgba(156, 163, 175, 0.25);
+        --chip-bg: rgba(15, 23, 42, 0.9);
+        --radius-lg: 22px;
+        --radius-pill: 999px;
+        --shadow-soft: 0 24px 80px rgba(15, 23, 42, 0.85);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont,
+          "Segoe UI", sans-serif;
+        background: radial-gradient(circle at top, #020617 0, #020617 40%, #020617 60%, #000 100%);
+        color: var(--text);
+        scroll-behavior: smooth;
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        inset: -20%;
+        background:
+          radial-gradient(circle at 10% 0, rgba(56, 189, 248, 0.06), transparent 55%),
+          radial-gradient(circle at 90% 20%, rgba(129, 140, 248, 0.08), transparent 55%),
+          radial-gradient(circle at 50% 100%, rgba(56, 189, 248, 0.08), transparent 55%);
+        opacity: 0.9;
+        mix-blend-mode: screen;
+        pointer-events: none;
+        z-index: -1;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .page {
+        min-height: 100vh;
+        color: var(--text);
+      }
+
+      .shell {
+        max-width: 1240px;
+        margin: 0 auto;
+        padding: 24px 24px 90px;
+      }
+
+      /* Top bar */
+      .top-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+        padding: 10px 18px;
+        border-radius: 999px;
+        border: 1px solid rgba(148, 163, 184, 0.4);
+        background: linear-gradient(
+            120deg,
+            rgba(15, 23, 42, 0.96),
+            rgba(15, 23, 42, 0.96)
+          ),
+          radial-gradient(circle at top left, rgba(56, 189, 248, 0.24), transparent 60%);
+        box-shadow: 0 16px 40px rgba(15, 23, 42, 0.9);
+        position: sticky;
+        top: 16px;
+        z-index: 20;
+        backdrop-filter: blur(18px);
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .logo-orb {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background:
+          conic-gradient(from 210deg, #22d3ee, #7c3aed, #f9a8d4, #22d3ee);
+        position: relative;
+        box-shadow:
+          0 0 0 1px rgba(148, 163, 184, 0.5),
+          0 0 40px rgba(59, 130, 246, 0.8);
+        overflow: hidden;
+      }
+
+      .logo-orb::after {
+        content: "";
+        position: absolute;
+        inset: 20%;
+        border-radius: inherit;
+        background: radial-gradient(circle at 30% 0, #f9fafb, transparent 60%);
+        opacity: 0.8;
+      }
+
+      .brand-text-main {
+        font-size: 0.9rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        font-weight: 600;
+        color: #e5e7eb;
+      }
+
+      .brand-text-sub {
+        font-size: 0.8rem;
+        color: var(--muted);
+      }
+
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        font-size: 0.86rem;
+        color: var(--muted);
+      }
+
+      .nav-links a {
+        position: relative;
+        padding: 4px 0;
+      }
+
+      .nav-links a::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -4px;
+        width: 0;
+        height: 2px;
+        border-radius: 999px;
+        background: linear-gradient(90deg, var(--accent), var(--accent-alt));
+        transition: width 0.18s ease-out;
+      }
+
+      .nav-links a:hover::after {
+        width: 100%;
+      }
+
+      .nav-cta {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .chip {
+        padding: 4px 10px;
+        border-radius: var(--radius-pill);
+        background: rgba(15, 23, 42, 0.9);
+        border: 1px solid rgba(148, 163, 184, 0.55);
+        color: var(--muted);
+        font-size: 0.75rem;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .chip-dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 999px;
+        background: #22c55e;
+        box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.25);
+      }
+
+      .btn {
+        border-radius: var(--radius-pill);
+        border: none;
+        padding: 7px 16px;
+        font-size: 0.8rem;
+        font-weight: 500;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        transition: transform 0.12s ease-out, box-shadow 0.12s ease-out,
+          background 0.12s ease-out;
+        white-space: nowrap;
+      }
+
+      .btn-primary {
+        background: linear-gradient(130deg, #4f46e5, #7c3aed, #e879f9);
+        color: #f9fafb;
+        box-shadow:
+          0 12px 35px rgba(79, 70, 229, 0.6),
+          0 0 0 1px rgba(129, 140, 248, 0.65);
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-1px);
+        box-shadow:
+          0 18px 45px rgba(79, 70, 229, 0.85),
+          0 0 0 1px rgba(129, 140, 248, 0.9);
+      }
+
+      .btn-ghost {
+        background: rgba(15, 23, 42, 0.9);
+        border: 1px solid rgba(148, 163, 184, 0.5);
+        color: #e5e7eb;
+      }
+
+      .btn-ghost:hover {
+        background: rgba(15, 23, 42, 1);
+        transform: translateY(-1px);
+      }
+
+      .btn-icon {
+        font-size: 1rem;
+      }
+
+      /* Layout */
+      .grid-main {
+        display: grid;
+        grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.95fr);
+        gap: 28px;
+        margin-top: 32px;
+      }
+
+      .panel {
+        border-radius: 26px;
+        border: 1px solid rgba(148, 163, 184, 0.5);
+        background: radial-gradient(circle at top left, rgba(148, 163, 248, 0.2), transparent 55%),
+          radial-gradient(circle at bottom, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.98));
+        box-shadow: var(--shadow-soft);
+        padding: 24px 24px 26px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .panel::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle at top right, rgba(56, 189, 248, 0.12), transparent 60%);
+        mix-blend-mode: soft-light;
+        opacity: 0.9;
+        pointer-events: none;
+      }
+
+      .panel-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 18px;
+      }
+
+      .panel-label {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 4px 11px;
+        border-radius: var(--radius-pill);
+        background: rgba(15, 23, 42, 0.85);
+        border: 1px solid rgba(148, 163, 184, 0.6);
+        font-size: 0.72rem;
+        text-transform: uppercase;
+        letter-spacing: 0.09em;
+        color: #e5e7eb;
+      }
+
+      .panel-label-pill {
+        padding: 4px 9px;
+        border-radius: var(--radius-pill);
+        background: rgba(148, 163, 184, 0.12);
+        font-size: 0.72rem;
+        color: var(--muted);
+      }
+
+      .hero-title {
+        font-size: clamp(2.2rem, 3.2vw, 2.8rem);
+        line-height: 1.05;
+        letter-spacing: -0.04em;
+        margin: 6px 0 10px;
+      }
+
+      .hero-title span {
+        background: linear-gradient(120deg, #a855f7, #22d3ee, #38bdf8);
+        -webkit-background-clip: text;
+        color: transparent;
+      }
+
+      .hero-sub {
+        font-size: 0.92rem;
+        color: var(--muted);
+        max-width: 460px;
+      }
+
+      .hero-metrics {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 18px;
+        margin: 22px 0 20px;
+      }
+
+      .metric {
+        min-width: 0;
+      }
+
+      .metric-label {
+        font-size: 0.72rem;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: var(--muted);
+        margin-bottom: 4px;
+      }
+
+      .metric-value {
+        font-size: 1.2rem;
+        font-weight: 600;
+      }
+
+      .metric-value span {
+        font-size: 0.75rem;
+        font-weight: 400;
+        color: var(--muted);
+        margin-left: 4px;
+      }
+
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 14px;
+      }
+
+      .hero-footnote {
+        font-size: 0.78rem;
+        color: var(--muted);
+      }
+
+      .hero-footnote strong {
+        color: #e5e7eb;
+      }
+
+      /* Right panel */
+      .right-panel {
+        display: grid;
+        gap: 16px;
+      }
+
+      .deck {
+        display: grid;
+        gap: 12px;
+      }
+
+      .card {
+        border-radius: 18px;
+        padding: 14px 14px 15px;
+        background: rgba(15, 23, 42, 0.96);
+        border: 1px solid rgba(148, 163, 184, 0.45);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 8px;
+        gap: 12px;
+      }
+
+      .card-title {
+        font-size: 0.85rem;
+        font-weight: 500;
+      }
+
+      .card-tag {
+        font-size: 0.7rem;
+        padding: 2px 9px;
+        border-radius: var(--radius-pill);
+        border: 1px solid rgba(148, 163, 184, 0.6);
+        color: var(--muted);
+      }
+
+      .card-body {
+        font-size: 0.8rem;
+        color: var(--muted);
+      }
+
+      .pill-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin-top: 9px;
+      }
+
+      .pill {
+        font-size: 0.72rem;
+        padding: 3px 9px;
+        border-radius: var(--radius-pill);
+        background: rgba(15, 23, 42, 0.9);
+        border: 1px solid rgba(148, 163, 184, 0.4);
+        color: #e5e7eb;
+      }
+
+      .code-block {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+          "Liberation Mono", "Courier New", monospace;
+        font-size: 0.76rem;
+        background: radial-gradient(circle at top left, rgba(51, 65, 85, 0.9), #020617);
+        padding: 11px 12px;
+        border-radius: 14px;
+        border: 1px solid rgba(148, 163, 184, 0.5);
+        margin-top: 8px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .code-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 6px;
+        font-size: 0.7rem;
+        color: #cbd5f5;
+      }
+
+      .code-dots {
+        display: flex;
+        gap: 4px;
+      }
+
+      .dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+      }
+
+      .dot.red {
+        background: #fb7185;
+      }
+
+      .dot.yellow {
+        background: #facc15;
+      }
+
+      .dot.green {
+        background: #4ade80;
+      }
+
+      .code-body {
+        color: #e5e7eb;
+      }
+
+      .code-comment {
+        color: #9ca3af;
+      }
+
+      .code-keyword {
+        color: #a5b4fc;
+      }
+
+      .code-fn {
+        color: #f97316;
+      }
+
+      .code-str {
+        color: #4ade80;
+      }
+
+      .code-num {
+        color: #facc15;
+      }
+
+      .timeline {
+        display: grid;
+        gap: 10px;
+        margin-top: 8px;
+        font-size: 0.75rem;
+      }
+
+      .timeline-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 12px;
+      }
+
+      .timeline-label {
+        color: var(--muted);
+      }
+
+      .timeline-value {
+        color: #e5e7eb;
+        font-weight: 500;
+      }
+
+      /* Sections */
+      .sections {
+        display: grid;
+        grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.95fr);
+        gap: 22px;
+        margin-top: 26px;
+      }
+
+      .section {
+        border-radius: 24px;
+        border: 1px solid rgba(148, 163, 184, 0.5);
+        background: radial-gradient(circle at top left, rgba(56, 189, 248, 0.1), transparent 55%),
+          radial-gradient(circle at bottom right, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.96));
+        padding: 18px 18px 20px;
+      }
+
+      .section-header-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 10px;
+        margin-bottom: 10px;
+      }
+
+      .section-title {
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 0.18em;
+        color: #9ca3af;
+      }
+
+      .section-sub {
+        font-size: 0.78rem;
+        color: var(--muted);
+      }
+
+      .section-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        gap: 12px;
+        margin-top: 6px;
+      }
+
+      .section-item {
+        border-radius: 16px;
+        padding: 10px 11px 11px;
+        background: rgba(15, 23, 42, 0.96);
+        border: 1px solid rgba(148, 163, 184, 0.55);
+      }
+
+      .section-item h4 {
+        margin: 0 0 4px;
+        font-size: 0.83rem;
+      }
+
+      .section-item p {
+        margin: 0;
+        font-size: 0.78rem;
+        color: var(--muted);
+      }
+
+      .section-pills {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin-top: 10px;
+      }
+
+      .section-note {
+        margin-top: 10px;
+        font-size: 0.78rem;
+        color: var(--muted);
+      }
+
+      .section-note strong {
+        color: #e5e7eb;
+      }
+
+      .section-list {
+        display: grid;
+        gap: 8px;
+        margin-top: 6px;
+        font-size: 0.8rem;
+      }
+
+      .section-list-item-title {
+        font-weight: 500;
+        margin-bottom: 1px;
+      }
+
+      .section-list-item-text {
+        color: var(--muted);
+      }
+
+      /* Contact */
+      .contact-section {
+        border-radius: 24px;
+        border: 1px solid rgba(148, 163, 184, 0.5);
+        background: radial-gradient(circle at top, rgba(129, 140, 248, 0.16), transparent 55%),
+          radial-gradient(circle at bottom, rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 0.98));
+        padding: 18px 18px 16px;
+        margin-top: 26px;
+        display: grid;
+        grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+        gap: 22px;
+      }
+
+      .contact-header {
+        font-size: 0.86rem;
+      }
+
+      .contact-header h3 {
+        margin: 0 0 6px;
+        font-size: 1rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: #9ca3af;
+      }
+
+      .contact-header h2 {
+        margin: 0 0 6px;
+        font-size: 1.25rem;
+        letter-spacing: -0.03em;
+      }
+
+      .contact-header p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .contact-form {
+        display: grid;
+        gap: 9px;
+      }
+
+      .field-pair {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        gap: 9px;
+      }
+
+      .field label {
+        font-size: 0.78rem;
+        color: var(--muted);
+        display: block;
+        margin-bottom: 2px;
+      }
+
+      .field input,
+      .field textarea {
+        width: 100%;
+        border-radius: 12px;
+        border: 1px solid rgba(148, 163, 184, 0.6);
+        background: rgba(15, 23, 42, 0.96);
+        padding: 7px 10px;
+        color: var(--text);
+        font-size: 0.8rem;
+        outline: none;
+        font-family: inherit;
+      }
+
+      .field textarea {
+        min-height: 80px;
+        resize: vertical;
+      }
+
+      .field input:focus,
+      .field textarea:focus {
+        border-color: rgba(129, 140, 248, 0.95);
+        box-shadow: 0 0 0 1px rgba(129, 140, 248, 0.7);
+      }
+
+      .contact-footnote {
+        font-size: 0.74rem;
+        color: var(--muted);
+        margin-top: 4px;
+      }
+
+      .footer {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10px;
+        margin-top: 18px;
+        font-size: 0.76rem;
+        color: var(--muted);
+      }
+
+      .footer-links {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .footer-links a {
+        padding: 3px 9px;
+        border-radius: var(--radius-pill);
+        border: 1px solid rgba(148, 163, 184, 0.6);
+        background: rgba(15, 23, 42, 0.9);
+      }
+
+      /* Responsive */
+      @media (max-width: 860px) {
+        .shell {
+          padding-inline: 14px;
+        }
+
+        .top-bar {
+          flex-wrap: wrap;
+          justify-content: center;
+          border-radius: 24px;
+          padding-inline: 14px;
+        }
+
+        .nav-links {
+          display: none;
+        }
+
+        .grid-main {
+          grid-template-columns: minmax(0, 1fr);
+        }
+
+        .sections {
+          grid-template-columns: minmax(0, 1fr);
+        }
+
+        .contact-section {
+          grid-template-columns: minmax(0, 1fr);
+        }
+      }
+
+      @media (max-width: 520px) {
+        .hero-metrics {
+          flex-direction: column;
+        }
+
+        .section-grid {
+          grid-template-columns: minmax(0, 1fr);
+        }
+
+        .field-pair {
+          grid-template-columns: minmax(0, 1fr);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <div class="shell">
+        <header class="top-bar">
+          <div class="brand">
+            <div class="logo-orb" aria-hidden="true"></div>
+            <div>
+              <div class="brand-text-main">NeuroZen AI</div>
+              <div class="brand-text-sub">Calm brains. Wild ideas. Sharp shipping.</div>
+            </div>
+          </div>
+          <nav class="nav-links">
+            <a href="#about">About</a>
+            <a href="#solutions">Solutions</a>
+            <a href="#capabilities">Capabilities</a>
+            <a href="#labs">Fun Lab</a>
+            <a href="#testimonials">Stories</a>
+            <a href="#contact">Contact</a>
+          </nav>
+          <div class="nav-cta">
+            <div class="chip">
+              <span class="chip-dot"></span>
+              Live AI prototypes
+            </div>
+            <button class="btn btn-primary" onclick="document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });">
+              Ship an AI app
+              <span class="btn-icon">↗</span>
+            </button>
+          </div>
+        </header>
+
+        <main>
+          <!-- Hero & system overview -->
+          <section id="about" class="grid-main">
+            <article class="panel">
+              <div class="panel-header">
+                <div>
+                  <div class="panel-label">
+                    <span>AI Experience Foundry</span>
+                    <span class="panel-label-pill">Studio · R&amp;D · Launchpad</span>
+                  </div>
+                  <h1 class="hero-title">
+                    We build <span>AI apps, chat‑bots &amp; agents</span> that feel alive.
+                  </h1>
+                  <p class="hero-sub">
+                    NeuroZen AI is a high‑tech AI studio crafting production‑grade chatbots,
+                    co‑pilots, and creative agents. From OpenAI‑powered assistants to fully custom
+                    models, we turn wild ideas into playful, reliable products.
+                  </p>
+                </div>
+              </div>
+
+              <div class="hero-metrics">
+                <div class="metric">
+                  <div class="metric-label">Production launches</div>
+                  <div class="metric-value">
+                    120+ <span>AI features shipped</span>
+                  </div>
+                </div>
+                <div class="metric">
+                  <div class="metric-label">Response latency</div>
+                  <div class="metric-value">
+                    180ms <span>median round‑trip</span>
+                  </div>
+                </div>
+                <div class="metric">
+                  <div class="metric-label">User satisfaction</div>
+                  <div class="metric-value">
+                    4.9<span>/5 chat CSAT</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="hero-actions">
+                <button
+                  class="btn btn-primary"
+                  onclick="document.getElementById('solutions').scrollIntoView({ behavior: 'smooth' });"
+                >
+                  Explore solutions
+                  <span class="btn-icon">⚡</span>
+                </button>
+                <button
+                  class="btn btn-ghost"
+                  onclick="document.getElementById('labs').scrollIntoView({ behavior: 'smooth' });"
+                >
+                  Play in the Fun Lab
+                  <span class="btn-icon">✨</span>
+                </button>
+              </div>
+              <p class="hero-footnote">
+                <strong>Zero slide‑ware.</strong> We prototype in days, iterate with your team, and
+                ship AI that your users actually love.
+              </p>
+            </article>
+
+            <aside class="right-panel">
+              <div class="card">
+                <div class="card-header">
+                  <div class="card-title">Conversational AI Stack</div>
+                  <div class="card-tag">Chatbots · Co‑pilots · Agents</div>
+                </div>
+                <div class="card-body">
+                  We orchestrate LLMs, tools, and memory into a single, high‑trust chat layer
+                  that plugs into your product.
+                  <div class="pill-row">
+                    <span class="pill">OpenAI &amp; frontier models</span>
+                    <span class="pill">Function calling</span>
+                    <span class="pill">Retrieval‑augmented chat</span>
+                    <span class="pill">Guardrails &amp; safety</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="code-block">
+                  <div class="code-header">
+                    <span>app/chatbot.ts</span>
+                    <div class="code-dots">
+                      <span class="dot red"></span>
+                      <span class="dot yellow"></span>
+                      <span class="dot green"></span>
+                    </div>
+                  </div>
+                  <pre class="code-body"><span class="code-comment">// fun, safe, and on‑brand chat in ~12 lines</span>
+<span class="code-keyword">import</span> { <span class="code-fn">createAgent</span> } <span class="code-keyword">from</span> <span class="code-str">"@neurozen/ai"</span>;
+
+<span class="code-keyword">export const</span> supportBot =
+  <span class="code-fn">createAgent</span>({
+    persona: <span class="code-str">"Helpful, playful support engineer."</span>,
+    tools: [<span class="code-str">"kb.search"</span>, <span class="code-str">"ticket.create"</span>],
+    maxLatencyMs: <span class="code-num">900</span>,
+  });</pre>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-header">
+                  <div class="card-title">Launch rhythm</div>
+                  <div class="card-tag">From idea → app</div>
+                </div>
+                <div class="timeline">
+                  <div class="timeline-row">
+                    <div class="timeline-label">Day 0–3</div>
+                    <div class="timeline-value">Clickable AI prototype</div>
+                  </div>
+                  <div class="timeline-row">
+                    <div class="timeline-label">Week 1–2</div>
+                    <div class="timeline-value">Integrated beta with guardrails</div>
+                  </div>
+                  <div class="timeline-row">
+                    <div class="timeline-label">Week 3–4</div>
+                    <div class="timeline-value">Production rollout &amp; analytics</div>
+                  </div>
+                </div>
+              </div>
+            </aside>
+          </section>
+
+          <!-- Solutions & capabilities -->
+          <section id="solutions" class="sections">
+            <article class="section">
+              <div class="section-header-row">
+                <div class="section-title">Solutions</div>
+                <div class="section-sub">AI that quietly does the work.</div>
+              </div>
+
+              <div class="section-grid">
+                <div class="section-item">
+                  <h4>Product Chatbots</h4>
+                  <p>
+                    Task‑oriented assistants that onboard users, answer questions, and trigger
+                    workflows inside your product — powered by OpenAI‑class models and your own
+                    data.
+                  </p>
+                </div>
+                <div class="section-item">
+                  <h4>AI Co‑pilots</h4>
+                  <p>
+                    Embedded AI sidekicks for support, sales, dev‑tools, and dashboards that draft,
+                    explain, and automate busywork with one click.
+                  </p>
+                </div>
+                <div class="section-item">
+                  <h4>Automation Agents</h4>
+                  <p>
+                    Multi‑step agents that read, decide, and act across APIs, from triaging tickets
+                    to syncing CRM and ops tools.
+                  </p>
+                </div>
+                <div class="section-item">
+                  <h4>Custom AI Apps</h4>
+                  <p>
+                    Full‑blown AI experiences: story generators, creative playgrounds, research
+                    copilots, internal tools — built end‑to‑end.
+                  </p>
+                </div>
+              </div>
+
+              <div class="section-pills">
+                <span class="pill">Enterprise‑ready</span>
+                <span class="pill">SOC2‑friendly architecture</span>
+                <span class="pill">Usage &amp; quality analytics</span>
+                <span class="pill">Human‑in‑the‑loop review</span>
+              </div>
+            </article>
+
+            <article id="capabilities" class="section">
+              <div class="section-header-row">
+                <div class="section-title">Capabilities</div>
+                <div class="section-sub">Under the hood, deeply engineered.</div>
+              </div>
+
+              <div class="section-list">
+                <div>
+                  <div class="section-list-item-title">Model Orchestration</div>
+                  <div class="section-list-item-text">
+                    Route between OpenAI, Anthropic, and open‑source models by task, latency, and
+                    cost — with fallbacks and safety filters baked in.
+                  </div>
+                </div>
+                <div>
+                  <div class="section-list-item-title">Retrieval &amp; Memory</div>
+                  <div class="section-list-item-text">
+                    Hybrid search, embeddings, and memory graphs to ground AI in your docs, tickets,
+                    and product events.
+                  </div>
+                </div>
+                <div>
+                  <div class="section-list-item-title">Tooling &amp; Integrations</div>
+                  <div class="section-list-item-text">
+                    Deep integrations with Slack, Discord, Notion, HubSpot, Github, and your
+                    internal APIs via robust function calling.
+                  </div>
+                </div>
+                <div>
+                  <div class="section-list-item-title">Safety &amp; Governance</div>
+                  <div class="section-list-item-text">
+                    Prompt hardening, content filters, rate limiting, and audit trails — so your AI
+                    is delightful without being dangerous.
+                  </div>
+                </div>
+              </div>
+
+              <p class="section-note">
+                <strong>We don’t just wire an API key.</strong> We operate the full AI surface with
+                observability, evaluation, and fast iteration loops.
+              </p>
+            </article>
+          </section>
+
+          <!-- Fun Lab & Testimonials -->
+          <section id="labs" class="sections">
+            <article class="section">
+              <div class="section-header-row">
+                <div class="section-title">Fun Lab</div>
+                <div class="section-sub">Serious R&amp;D with playful vibes.</div>
+              </div>
+
+              <div class="section-grid">
+                <div class="section-item">
+                  <h4>Mood‑Shift Chat</h4>
+                  <p>
+                    A toggle that lets users flip their AI between “Professor”, “Comedian”, and
+                    “Speed‑runner” — same brain, new personality.
+                  </p>
+                </div>
+                <div class="section-item">
+                  <h4>Multiplayer Prompts</h4>
+                  <p>
+                    Shared prompt rooms where teammates co‑design flows, remix ideas, and export the
+                    best ones straight into production.
+                  </p>
+                </div>
+                <div class="section-item">
+                  <h4>Story Worlds</h4>
+                  <p>
+                    Generative universes for games and education: characters with memory, maps with
+                    lore, and quests that adapt on the fly.
+                  </p>
+                </div>
+                <div class="section-item">
+                  <h4>Realtime Voice Bots</h4>
+                  <p>
+                    Low‑latency, personality‑rich voice agents for customer support, events, and
+                    live streams.
+                  </p>
+                </div>
+              </div>
+
+              <div class="section-pills">
+                <span class="pill">Hack‑nights &amp; jams</span>
+                <span class="pill">Experimental features</span>
+                <span class="pill">Playable prototypes</span>
+              </div>
+            </article>
+
+            <article id="testimonials" class="section">
+              <div class="section-header-row">
+                <div class="section-title">Stories</div>
+                <div class="section-sub">Teams shipping with NeuroZen AI.</div>
+              </div>
+
+              <div class="section-list">
+                <div>
+                  <div class="section-list-item-title">OrbitDesk</div>
+                  <div class="section-list-item-text">
+                    “Our AI support assistant resolved 61% of tickets without a human. Customers
+                    keep asking if it’s a real person — in a good way.”
+                  </div>
+                </div>
+                <div>
+                  <div class="section-list-item-title">Skyline Analytics</div>
+                  <div class="section-list-item-text">
+                    “The dashboard co‑pilot turned 12‑step workflows into single chat prompts.
+                    Adoption blew past our best‑case roadmap.”
+                  </div>
+                </div>
+                <div>
+                  <div class="section-list-item-title">Indie game studio</div>
+                  <div class="section-list-item-text">
+                    “Their AI story‑builder felt like a writer’s room in a box. Our players keep
+                    uncovering new quests we didn’t fully script.”
+                  </div>
+                </div>
+              </div>
+
+              <p class="section-note">
+                <strong>From tiny teams to global orgs.</strong> We meet you where you are — MVP,
+                scale‑up, or ‘we just have a weird idea’. That’s our favorite.
+              </p>
+            </article>
+          </section>
+
+          <!-- Contact -->
+          <section id="contact" class="contact-section">
+            <div class="contact-header">
+              <h3>Contact</h3>
+              <h2>Tell us about your dream AI app.</h2>
+              <p>
+                A few sentences are enough. We’ll respond with realistic timelines, wild ideas, and
+                a tiny prototype plan.
+              </p>
+            </div>
+            <form
+              class="contact-form"
+              onsubmit="event.preventDefault(); alert('Thanks! We’ll pretend this sent a message.');"
+            >
+              <div class="field-pair">
+                <div class="field">
+                  <label for="name">Name</label>
+                  <input id="name" name="name" type="text" placeholder="Ada Lovelace" />
+                </div>
+                <div class="field">
+                  <label for="email">Email</label>
+                  <input
+                    id="email"
+                    name="email"
+                    type="email"
+                    placeholder="you@futurestartup.dev"
+                  />
+                </div>
+              </div>
+              <div class="field">
+                <label for="company">Company / Project</label>
+                <input
+                  id="company"
+                  name="company"
+                  type="text"
+                  placeholder="Fun AI idea, early stage startup, or big company"
+                />
+              </div>
+              <div class="field">
+                <label for="message">What should this AI do?</label>
+                <textarea
+                  id="message"
+                  name="message"
+                  placeholder="Tell us the dream use‑case, your users, and anything you’ve tried so far."
+                ></textarea>
+              </div>
+              <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 4px;">
+                <button type="submit" class="btn btn-primary">
+                  Send the idea
+                  <span class="btn-icon">🚀</span>
+                </button>
+                <div class="contact-footnote">
+                  We’ll reply with no spam, no pressure, and at least one fun prototype idea.
+                </div>
+              </div>
+            </form>
+          </section>
+
+          <footer class="footer">
+            <div>© NeuroZen AI — High‑tech AI app &amp; chatbot studio</div>
+            <div class="footer-links">
+              <a
+                href="https://in.linkedin.com/in/navaneetha-krishnan-m-8b41b52a1"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="LinkedIn profile"
+              >
+                LinkedIn
+              </a>
+              <a
+                href="https://github.com/CuteKitty0000/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="GitHub profile"
+              >
+                GitHub
+              </a>
+            </div>
+          </footer>
+        </main>
+      </div>
+    </div>
+  </body>
+</html>
+
+
